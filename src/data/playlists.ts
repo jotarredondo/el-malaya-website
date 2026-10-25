@@ -9,33 +9,33 @@ export interface Playlist {
 
 export const playlists: Playlist[] = [
     {
-        id: 'malaya-inspiration',
-        title: 'Malaya Inspiration',
-        description: 'Playlists de inspiración musical.',
+        id: 'Groovy Tech-House',
+        title: 'Groovy Tech House',
+        description: 'Bajos con actitud, percusión contagiosa y grooves diseñados para la pista.',
         spotifyUrl:
-            'https://open.spotify.com/playlist/62gNHTVXdx3l0GRRLmiHkF?si=7dd08d2a2bec4c07'
+            'https://open.spotify.com/playlist/0WAl70tGR4eF2NVFnCUMJd?si=bb4bf2025e714a5e'
     },
     {
-        id: 'malaya-inspiration2',
-        title: 'Malaya Inspiration2',
-        description: 'Playlists de inspiración musical.2',
+        id: 'Edm Festival Electro-House',
+        title: 'Edm Festival Electro-House',
+        description: 'Energía de festival, drops explosivos y himnos electrónicos para levantar la pista.',
         spotifyUrl:
-            'https://open.spotify.com/playlist/6KrBXwUzrBkSufI4Y49mqv?si=b85b06bb7b5e4718'
+            'https://open.spotify.com/playlist/6z4W6OG2u5c2VKR1I4LVeu?si=c2d55e58c3c746d0'
 
     },
     {
-        id: 'malaya-inspiration3',
-        title: 'Malaya Inspiration3',
-        description: 'Playlists de inspiración musical.3',
+        id: 'Global Club Afro-Latin',
+        title: 'Global Club Afro-Latin',
+        description: 'Percusión afro-latina, ritmos globales y electrónica de club sin fronteras.',
         spotifyUrl:
-            'https://open.spotify.com/playlist/6EYT1lV0po7q9DW5nt9z2P?si=9546f6073e914acc'
+            'https://open.spotify.com/playlist/0BEXIYEv4lo0zaFxapUDRc?si=0a69fcf463894cf1'
     },
     {
-        id: 'malaya-inspiration4',
-        title: 'Malaya Inspiration4',
-        description: 'Playlists de inspiración musical.4',
+        id: 'Disco Funky-House',
+        title: 'Disco Funky-House',
+        description: 'El espíritu disco y el funk se encuentran con el house. Ritmo, elegancia y mucho groove.',
         spotifyUrl:
-            'https://open.spotify.com/playlist/066CQBTaRnNlmSxYCnRNCb?si=ca30ec8b28f64a8b'
+            'https://open.spotify.com/playlist/2C0PqOqbuvA9kjjKUasFxQ?si=0da80ed0ab7740c8'
 
     }
 ];

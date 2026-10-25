@@ -1,11 +1,148 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import SpotifyPlaylistSelector from '../components/media/SpotifyPlaylistSelector.astro';
+import YouTubeGallery from '../components/media/YouTubeGallery.astro';
+import { playlists } from '../data/playlists';
+import { videos } from '../data/videos';
+import { siteConfig } from '../data/site';
+import '../styles/home.css';
+import SocialLinks from '../components/ui/SocialLinks.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const contactHref = siteConfig.bookingEmail
+  ? `mailto:${siteConfig.bookingEmail}?subject=${encodeURIComponent('Booking - MALAYA')}`
+  : null;
 ---
 
 <Layout>
-	<Welcome />
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="home-header" id="top">
+    <nav class="home-container home-nav" aria-label="Navegación principal">
+      <!-- Nombre temporal: no es un logotipo definitivo -->
+      <a class="home-brand" href="#top">MALAYA</a>
+      <div class="home-links">
+        <a href="#music">Música</a>
+        <a href="#videos">Videos</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contacto</a>
+      </div>
+      <SocialLinks variant="header" />
+    </nav>
+  </header>
+
+  <main id="contenido" class="home-page">
+    <section class="home-hero" aria-labelledby="hero-title">
+      <div class="home-hero__light" aria-hidden="true"></div>
+      <div class="home-container home-hero__content">
+        <p class="home-eyebrow">SANTIAGO, CHILE <span aria-hidden="true">/</span> DJ &amp; PRODUCER</p>
+        <h1 id="hero-title">MALAYA</h1>
+        <p class="home-hero__description">
+          Una identidad musical en movimiento. Selecciones, remixes y video en un mismo lugar.
+        </p>
+        <div class="home-actions">
+          <a class="home-action home-action--primary" href="#music">Escuchar música <span aria-hidden="true">↗</span></a>
+          <a class="home-action home-action--outline" href="#videos">Ver videos <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-container" id="music" aria-labelledby="music-title">
+      <div class="home-section__heading">
+        <p class="home-eyebrow">01 / MUSIC</p>
+        <h2 id="music-title">Spotify Playlists</h2>
+      </div>
+      <SpotifyPlaylistSelector playlists={playlists} />
+    </section>
+
+    <section class="home-section home-section--panel" id="videos" aria-labelledby="videos-title">
+      <div class="home-container">
+        <div class="home-section__heading">
+          <p class="home-eyebrow">02 / VIDEOS</p>
+          <h2 id="videos-title">Youtube Videos</h2>
+        </div>
+        <YouTubeGallery videos={videos} />
+      </div>
+    </section>
+
+
+    <section class="home-section home-container home-about" id="about" aria-labelledby="about-title">
+      <div class="home-about__visual">
+        <img src="/images/el-malaya-about.webp"
+            alt="Ilustración de EL MALAYA con máscara fucsia y cian,
+           gorro negro y Santiago representado en líneas de neón"
+            width="1254"
+            height="1254"
+            loading="lazy"
+            decoding="async"/>
+      </div>
+
+      <div class="home-about__content">
+        <p class="home-eyebrow">03 / ABOUT</p>
+        <h2 id="about-title">El universo MALAYA</h2>
+        <p class="home-about__tagline">
+          De la velocidad al sonido.
+        </p>
+
+        <p>EL MALAYA nació de una historia marcada por la
+          velocidad, el riesgo y la reinvención. Tras un
+          accidente que cambió su camino como piloto de
+          motociclismo, encontró en la música una nueva
+          forma de vivir la adrenalina.</p>
+
+        <p>Hoy, con su característica máscara, explora el
+          house, los ritmos globales y diferentes expresiones
+          de la música electrónica, sin limitarse a un solo género.</p>
+
+        <p>Una identidad, muchas influencias y una misma
+          obsesión: hacer que la música se sienta.</p>
+      </div>
+    </section>
+
+
+    <section class="home-section home-section--contact" id="contact" aria-labelledby="contact-title">
+      <div class="home-container home-contact">
+        <div>
+          <p class="home-eyebrow">04 / CONTACT &amp; BOOKINGS</p>
+          <h2 id="contact-title">Let's Connect</h2>
+          <p>Bookings, colaboraciones y proyectos musicales.</p>
+        </div>
+        {contactHref ? (
+          <div class="home-contact__actions">
+            <a class="home-action home-action--primary" href={contactHref}>Enviar correo <span aria-hidden="true">↗</span></a>
+            <button class="home-action home-action--outline" type="button" data-copy-email={siteConfig.bookingEmail}>Copiar email</button>
+            <span class="home-copy-feedback" role="status" aria-live="polite"></span>
+          </div>
+        ) : (
+          <p class="home-muted">Canal de contacto por configurar. No se mostrará una dirección inventada.</p>
+        )}
+      </div>
+    </section>
+  </main>
+
+  <footer class="home-footer">
+    <div class="home-container home-footer__inner">
+      <div>
+        <strong>EL MALAYA</strong>
+        <small>DJ / PRODUCER</small>
+      </div>
+      <div class="home-footer__socials">
+        <SocialLinks variant="footer" />
+      </div>
+    </div>
+  </footer>
 </Layout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const email = button.dataset.copyEmail;
+      const feedback = button.parentElement?.querySelector<HTMLElement>('.home-copy-feedback');
+      if (!email) return;
+      try {
+        await navigator.clipboard.writeText(email);
+        if (feedback) feedback.textContent = 'Correo copiado';
+      } catch {
+        if (feedback) feedback.textContent = 'No se pudo copiar. Utiliza el enlace de correo.';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,24 @@
+---
+import { siteConfig } from '../../data/site';
+import '../../styles/social-links.css';
+
+interface Props {
+  variant?: 'header' | 'footer';
+}
+const { variant = 'header' } = Astro.props;
+---
+
+<div class:list={['social-links', `social-links--${variant}`]} aria-label="Enlaces musicales y redes sociales">
+  {siteConfig.socialLinks.map((social) => (
+    <a
+      href={social.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Abrir ${social.label}${social.isOfficial ? ' de EL MALAYA' : ''}`}
+      title={social.label}
+    >
+      <span class="social-links__icon" aria-hidden="true" style={`--social-icon: url('/icons/${social.icon}.svg')`}></span>
+      {variant === 'footer' && <span class="social-links__label">{social.label}</span>}
+    </a>
+  ))}
+</div>

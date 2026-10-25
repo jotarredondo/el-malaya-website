@@ -1,0 +1,353 @@
+/* EL MALAYA — Homepage v0.1. Afecta únicamente a las clases home-*. */
+.home-container { width: min(100% - 2.5rem, var(--container-max-width)); margin-inline: auto; }
+.skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 100; padding: .65rem 1rem; background: var(--color-accent-secondary); color: #080B10; }
+.skip-link:focus { top: 1rem; }
+.home-header { position: relative; z-index: 3; background: #0a0c11; border-bottom: 1px solid var(--color-border); }
+.home-nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 1.5rem; }
+.home-brand { font: 700 1.15rem var(--font-heading); letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+.home-links { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(.85rem, 2vw, 2rem); }
+.home-links a { font: 500 .85rem var(--font-body); text-decoration: none; color: var(--color-text-secondary); transition: color var(--transition-normal); }
+.home-links a:hover { color: var(--color-accent-primary); }
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  background-color: #0a0c11;
+  background-image: url('/images/el-malaya-hero.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.home-hero__light {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+          90deg,
+          rgba(10, 12, 17, 0.35) 0%,
+          rgba(10, 12, 17, 0.12) 40%,
+          transparent 70%
+  );
+}
+.home-hero__content { padding-block: 8rem; }
+
+/* ========================================
+   EL MALAYA — Typography & Actions
+   ======================================== */
+
+.home-eyebrow {
+  margin: 0 0 1.2rem;
+  font: 500 .75rem var(--font-mono);
+  letter-spacing: .16em;
+  color: var(--color-accent-primary);
+  text-transform: uppercase;
+}
+
+.home-eyebrow span {
+  color: var(--color-accent-secondary);
+}
+
+.home-hero h1 {
+  font: 700 clamp(3.4rem, 11vw, 8rem)/1 var(--font-heading);
+  letter-spacing: -.055em;
+  margin: 0 0 1.5rem;
+  max-width: 12ch;
+}
+
+.home-hero__description {
+  max-width: 48ch;
+  font: 400 clamp(1.1rem, 1.8vw, 1.35rem)/1.55 var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.home-actions,
+.home-contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.home-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  min-height: 48px;
+  padding: .75rem 1.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font: 600 .9rem var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+          box-shadow var(--transition-normal),
+          transform var(--transition-normal);
+}
+
+.home-action:hover {
+  transform: translateY(-2px);
+}
+
+.home-action--primary {
+  background: var(--color-accent-primary);
+  color: #0a0c11;
+}
+
+.home-action--primary:hover {
+  box-shadow: var(--glow-pink);
+}
+
+.home-action--outline {
+  background: rgba(10, 12, 17, .65);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent-secondary);
+}
+
+.home-action--outline:hover {
+  box-shadow: var(--glow-cyan);
+}
+
+/* ========================================
+   General Sections
+   ======================================== */
+
+.home-section {
+  padding-block: clamp(4rem, 7vw, 6rem);
+  scroll-margin-top: 1rem;
+}
+
+.home-section--panel {
+  background: #0e1420;
+  border-block: 1px solid var(--color-border);
+}
+
+.home-section__heading {
+  max-width: 65ch;
+  margin-bottom: 2.5rem;
+}
+
+.home-section__heading h2,
+.home-about h2,
+.home-contact h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.home-section__heading > p:last-child,
+.home-about p:not(.home-eyebrow):not(.home-about__tagline),
+.home-contact p:not(.home-eyebrow) {
+  color: var(--color-text-secondary);
+}
+
+.home-about__tagline {
+  margin-block: 16px 24px;
+  color: var(--color-text-primary);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+.home-muted {
+  color: var(--color-text-secondary);
+  font-size: .9rem;
+}
+
+/* ========================================
+   Spotify & YouTube — Compact Spacing
+   ======================================== */
+
+#music,
+#videos {
+  padding-block: 32px;
+}
+
+#music .home-section__heading,
+#videos .home-section__heading {
+  margin-bottom: 16px;
+}
+
+#music .spotify-selector,
+#videos .youtube-gallery {
+  margin-block: 0;
+}
+
+/* ========================================
+   About
+   ======================================== */
+
+
+.home-about {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-block: 24px;
+}
+
+.home-about__visual {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #000;
+}
+
+.home-about__visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.home-about__content {
+  min-width: 0;
+}
+
+/* ========================================
+   Contact & Bookings
+   ======================================== */
+
+.home-section--contact {
+  background: linear-gradient(110deg, #1b1727, #0b1420 75%);
+}
+
+.home-contact {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-copy-feedback {
+  color: var(--color-accent-secondary);
+  font-size: .8rem;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.home-footer {
+  border-top: 1px solid var(--color-border);
+  padding-block: 2.5rem;
+}
+
+.home-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.home-footer strong {
+  font: 700 1.2rem var(--font-heading);
+}
+
+.home-footer small {
+  display: block;
+  color: var(--color-text-secondary);
+  font: 400 .68rem var(--font-mono);
+  margin-top: .5rem;
+}
+
+.home-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--color-text-secondary);
+  font-size: .8rem;
+}
+
+.home-footer__socials a {
+  text-decoration: none;
+}
+
+.home-footer__socials a:hover {
+  color: var(--color-accent-primary);
+}
+
+/* ========================================
+   Responsive — Tablets & Mobile
+   ======================================== */
+
+@media (max-width: 760px) {
+  .home-nav {
+    flex-wrap: wrap;
+    padding-block: 1rem;
+  }
+
+  .home-links {
+    width: 100%;
+    gap: 1.25rem;
+  }
+
+  .home-hero {
+    min-height: 720px;
+    align-items: flex-end;
+    background-position: 64% center;
+  }
+
+  .home-hero__light {
+    background: linear-gradient(
+            0deg,
+            rgba(10, 12, 17, .96) 0%,
+            rgba(10, 12, 17, .7) 35%,
+            rgba(10, 12, 17, .05) 80%
+    );
+  }
+
+  .home-hero__content {
+    padding-block: 3rem;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  #music,
+  #videos {
+    padding-block: 28px;
+  }
+
+  .home-about {
+    grid-template-columns: 1fr;
+    padding-block: 24px;
+  }
+
+  .home-contact {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-about__visual {
+    max-width: 280px;
+  }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-action {
+    transition: none;
+  }
+
+  .home-action:hover {
+    transform: none;
+  }
+}
