@@ -1,0 +1,136 @@
+---
+import '../../styles/youtube-gallery.css';
+import type { Video } from '../../data/videos';
+
+interface Props {
+  videos: Video[];
+}
+
+const { videos } = Astro.props;
+
+// Acepta únicamente URLs oficiales de YouTube.
+// El reproductor se crea al hacer clic, no al cargar la página.
+function getYouTubeEmbedUrl(value?: string): string | null {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:') return null;
+
+    const host = url.hostname.toLowerCase();
+    const path = url.pathname.split('/').filter(Boolean);
+    const isYouTube = ['youtube.com', 'www.youtube.com', 'm.youtube.com'].includes(host);
+    const isShortLink = host === 'youtu.be' || host === 'www.youtu.be';
+
+    if (isYouTube && path[0] === 'playlist') {
+      const listId = url.searchParams.get('list');
+      if (!listId || !/^[a-zA-Z0-9_-]{10,100}$/.test(listId)) return null;
+      return `https://www.youtube-nocookie.com/embed?listType=playlist&list=${encodeURIComponent(listId)}`;
+    }
+
+    let videoId: string | null = null;
+    if (isShortLink) {
+      videoId = path[0] ?? null;
+    } else if (isYouTube && path[0] === 'watch') {
+      videoId = url.searchParams.get('v');
+    } else if (isYouTube && ['shorts', 'live', 'embed'].includes(path[0] ?? '')) {
+      videoId = path[1] ?? null;
+    }
+
+    if (!videoId || !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return null;
+    return `https://www.youtube-nocookie.com/embed/${videoId}`;
+  } catch {
+    return null;
+  }
+}
+
+const items = videos.map((video) => ({
+  ...video,
+  embedUrl: getYouTubeEmbedUrl(video.youtubeUrl),
+}));
+---
+
+<section class="youtube-gallery" data-youtube-gallery aria-label="Galería de YouTube">
+  <div class="youtube-gallery__header">
+    <p class="label-tech">02 / VIDEO SELECTION</p>
+    <h3>Watch / Live Sets</h3>
+    <p>Sesiones y contenido audiovisual de EL MALAYA.</p>
+  </div>
+
+  <div class="youtube-gallery__layout">
+    <div class="youtube-gallery__cards">
+      {items.length > 0 ? items.map((video, index) => (
+        video.embedUrl ? (
+          <button
+            type="button"
+            class="youtube-gallery__card"
+            data-youtube-embed={video.embedUrl}
+            data-youtube-title={video.title}
+            aria-pressed="false"
+            aria-label={`Ver ${video.title}`}
+          >
+            <span class="youtube-gallery__poster">
+              {video.thumbnail && <img src={video.thumbnail} alt="" loading="lazy" decoding="async" />}
+              <span class="youtube-gallery__play" aria-hidden="true">▶</span>
+            </span>
+            <span class="youtube-gallery__card-info">
+              <span class="youtube-gallery__number">{String(index + 1).padStart(2, '0')}</span>
+              <strong>{video.title}</strong>
+              <small>{video.description}</small>
+            </span>
+          </button>
+        ) : (
+          <article class="youtube-gallery__card youtube-gallery__card--pending">
+            <div class="youtube-gallery__poster">
+              {video.thumbnail && <img src={video.thumbnail} alt="" loading="lazy" decoding="async" />}
+              <span class="youtube-gallery__pending-icon" aria-hidden="true">◌</span>
+            </div>
+            <div class="youtube-gallery__card-info">
+              <span class="youtube-gallery__number">{String(index + 1).padStart(2, '0')}</span>
+              <strong>{video.title}</strong>
+              <small>{video.description}</small>
+              <span class="youtube-gallery__pending-label">PRÓXIMAMENTE · DEMO</span>
+            </div>
+          </article>
+        )
+      )) : (
+        <p class="youtube-gallery__empty">Todavía no hay videos configurados.</p>
+      )}
+    </div>
+
+    <div class="youtube-gallery__viewer">
+      <p class="label-tech">VIDEO PLAYER</p>
+      <h4 data-youtube-selected-title>Selecciona un video</h4>
+      <div class="youtube-gallery__player" data-youtube-player>
+        <p>El reproductor oficial se abrirá aquí cuando selecciones un video publicado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-youtube-gallery]').forEach((gallery) => {
+    const target = gallery.querySelector<HTMLElement>('[data-youtube-player]');
+    const heading = gallery.querySelector<HTMLElement>('[data-youtube-selected-title]');
+    const buttons = gallery.querySelectorAll<HTMLButtonElement>('[data-youtube-embed]');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const embedUrl = button.dataset.youtubeEmbed;
+        const title = button.dataset.youtubeTitle || 'Video de EL MALAYA';
+        if (!target || !embedUrl || !embedUrl.startsWith('https://www.youtube-nocookie.com/embed')) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.title = title;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        target.replaceChildren(iframe);
+
+        if (heading) heading.textContent = title;
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      });
+    });
+  });
+</script>

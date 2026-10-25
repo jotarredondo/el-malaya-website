@@ -1,0 +1,100 @@
+/* =====================================
+   EL MALAYA - GLOBAL STYLES v0.1
+   ===================================== */
+
+/* 1. Configuración general */
+
+:root {
+    color-scheme: dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Documento */
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--color-bg);
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+/* 3. Elementos multimedia */
+
+img,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 4. Enlaces y controles */
+
+a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* 5. Accesibilidad */
+
+:focus-visible {
+    outline: 3px solid var(--color-accent-secondary);
+    outline-offset: 3px;
+}
+
+::selection {
+    background-color: var(--color-accent-primary);
+    color: var(--color-bg);
+}
+
+/* 6. Contenedor principal */
+
+.container {
+    width: min(
+            calc(100% - 2rem),
+            var(--container-max-width)
+    );
+
+    margin-inline: auto;
+}
+
+/* 7. Preferencias de movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

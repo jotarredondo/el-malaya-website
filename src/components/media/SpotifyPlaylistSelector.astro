@@ -1,0 +1,134 @@
+---
+import SpotifyEmbed from './SpotifyEmbed.astro';
+import '../../styles/spotify-playlist-selector.css';
+import type { Playlist } from '../../data/playlists';
+
+interface Props {
+  playlists: Playlist[];
+}
+
+const { playlists } = Astro.props;
+
+function getSpotifyId(spotifyUrl?: string): string | null {
+  if (!spotifyUrl) return null;
+
+  try {
+    const url = new URL(spotifyUrl);
+    const parts = url.pathname.split('/').filter(Boolean);
+    const id = parts[1];
+
+    if (url.protocol !== 'https:' || url.hostname !== 'open.spotify.com') {
+      return null;
+    }
+
+    if (parts.length !== 2 || parts[0] !== 'playlist' || !id) {
+      return null;
+    }
+
+    const isAlphanumeric = [...id].every((character) =>
+      (character >= 'a' && character <= 'z') ||
+      (character >= 'A' && character <= 'Z') ||
+      (character >= '0' && character <= '9')
+    );
+
+    return id.length === 22 && isAlphanumeric ? id : null;
+  } catch {
+    return null;
+  }
+}
+
+const availablePlaylists = playlists.flatMap((playlist) => {
+  const spotifyId = getSpotifyId(playlist.spotifyUrl);
+
+  return spotifyId && playlist.spotifyUrl
+    ? [{ ...playlist, spotifyId, spotifyUrl: playlist.spotifyUrl }]
+    : [];
+});
+
+const selectedPlaylist = availablePlaylists[0];
+---
+
+{selectedPlaylist ? (
+  <section class="spotify-selector" data-spotify-selector aria-label="Playlists de Spotify">
+    <div class="spotify-selector__list">
+      <p class="label-tech">SELECT YOUR SOUND / 01</p>
+      <h3>Music Selection</h3>
+
+      <div class="playlist-options" aria-label="Seleccionar playlist">
+        {availablePlaylists.map((playlist, index) => (
+          <button
+            type="button"
+            class="playlist-option"
+            data-spotify-id={playlist.spotifyId}
+            data-spotify-title={playlist.title}
+            aria-pressed={index === 0}
+          >
+            <span class="playlist-option__number">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+
+            <span class="playlist-option__info">
+              <strong>{playlist.title}</strong>
+              <small>{playlist.description}</small>
+            </span>
+
+            <span aria-hidden="true">↗</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="spotify-selector__player">
+      <p class="label-tech">NOW SELECTED</p>
+      <h3 data-selected-title>{selectedPlaylist.title}</h3>
+
+      <SpotifyEmbed
+        spotifyUrl={selectedPlaylist.spotifyUrl}
+        title={selectedPlaylist.title}
+      />
+    </div>
+  </section>
+) : (
+  <p class="empty-message">Todavía no hay playlists públicas configuradas.</p>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-spotify-selector]').forEach((selector) => {
+    const buttons = selector.querySelectorAll<HTMLButtonElement>('[data-spotify-id]');
+    const iframe = selector.querySelector<HTMLIFrameElement>('iframe');
+    const selectedTitle = selector.querySelector<HTMLElement>('[data-selected-title]');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const spotifyId = button.dataset.spotifyId;
+        const title = button.dataset.spotifyTitle;
+
+        if (!spotifyId || !title || !iframe) return;
+
+        const validId = spotifyId.length === 22 && [...spotifyId].every((character) =>
+          (character >= 'a' && character <= 'z') ||
+          (character >= 'A' && character <= 'Z') ||
+          (character >= '0' && character <= '9')
+        );
+
+        if (!validId) return;
+
+        const embedUrl = `https://open.spotify.com/embed/playlist/${spotifyId}`;
+
+        if (iframe.src !== embedUrl) {
+          iframe.src = embedUrl;
+        }
+
+        iframe.title = `Spotify Playlist: ${title}`;
+
+        if (selectedTitle) {
+          selectedTitle.textContent = title;
+        }
+
+        buttons.forEach((item) => {
+          item.setAttribute('aria-pressed', String(item === button));
+        });
+      });
+    });
+  });
+</script>

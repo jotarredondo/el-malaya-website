@@ -1,0 +1,47 @@
+---
+interface Props {
+    spotifyUrl: string;
+    title: string;
+}
+
+const { spotifyUrl, title } = Astro.props;
+
+const match = spotifyUrl.match(
+    /^https:\/\/open\.spotify\.com\/playlist\/([a-zA-Z0-9]{22})(?:[/?]|$)/
+);
+
+const embedUrl = match
+    ? `https://open.spotify.com/embed/playlist/${match[1]}`
+    : null;
+---
+
+<div class="spotify-player">
+    {embedUrl ? (
+            <iframe
+                    title={`Spotify Playlist: ${title}`}
+                    src={embedUrl}
+                    width="100%"
+                    height="352"
+                    loading="lazy"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    allowfullscreen
+            ></iframe>
+    ) : (
+            <p>Playlist no disponible.</p>
+    )}
+</div>
+
+<style>
+    .spotify-player {
+        width: 100%;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        background: var(--color-surface);
+    }
+
+    .spotify-player iframe {
+        display: block;
+        width: 100%;
+        border: 0;
+    }
+</style>

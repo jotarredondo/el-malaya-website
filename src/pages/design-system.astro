@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import MediaCard from '../components/media/MediaCard.astro';
+import { playlists } from '../data/playlists';
+import { videos } from '../data/videos';
+import SpotifyEmbed from '../components/media/SpotifyEmbed.astro';
+import YouTubeGallery from '../components/media/YouTubeGallery.astro';
+const featuredPlaylist = playlists.find(
+    (playlist) => playlist.id === 'malaya-inspiration'
+);
+---
+
+<Layout>
+
+    <main class="container design-system">
+
+        <header class="intro">
+            <span class="label-tech">EL MALAYA / DESIGN SYSTEM V0.1</span>
+            <h1>Urban Night Culture</h1>
+            <p>
+                Identidad visual inspirada en Santiago nocturno,
+                música electrónica y tecnología.
+            </p>
+        </header>
+
+        <section id="colores">
+            <span class="label-tech">01 / COLOR SYSTEM</span>
+            <h2>Paleta de colores</h2>
+
+            <div class="color-grid">
+                <div class="swatch">
+                    <div class="color-preview obsidian"></div>
+                    <strong>Obsidian</strong>
+                    <small>#0A0C11</small>
+                </div>
+
+                <div class="swatch">
+                    <div class="color-preview pink"></div>
+                    <strong>Mask / UI Pink</strong>
+                    <small>#F16D97</small>
+                </div>
+
+                <div class="swatch">
+                    <div class="color-preview cyan"></div>
+                    <strong>Mask Cyan</strong>
+                    <small>#A8ECF8</small>
+                </div>
+
+                <div class="swatch">
+                    <div class="color-preview amber"></div>
+                    <strong>City Amber</strong>
+                    <small>#FF9A2F</small>
+                </div>
+            </div>
+        </section>
+
+        <section id="tipografia">
+            <span class="label-tech">02 / TYPOGRAPHY</span>
+            <h2>Tipografías</h2>
+
+            <div class="type-example">
+                <span class="label-tech">SORA / HEADINGS</span>
+                <h1>EL MALAYA</h1>
+            </div>
+
+            <div class="type-example">
+                <span class="label-tech">INTER / BODY</span>
+                <p>
+                    Una experiencia musical inspirada en el movimiento,
+                    la energía urbana y la noche de Santiago.
+                </p>
+            </div>
+
+            <div class="type-example">
+                <span class="label-tech">IBM PLEX MONO / INTERFACE</span>
+                <p class="label-tech">
+                    01 / MUSIC — SANTIAGO, CHILE
+                </p>
+            </div>
+        </section>
+
+        <section id="componentes">
+            <span class="label-tech">03 / UI COMPONENTS</span>
+            <h2>Botones y superficies</h2>
+
+            <div class="button-group">
+                <Button href="#colores" variant="primary">
+                    Explore Music ↗
+                </Button>
+
+                <Button href="#tipografia" variant="secondary">
+                    Discover More →
+                </Button>
+            </div>
+
+
+
+
+            <h3 class="gallery-title">Spotify / Embedded Player</h3>
+
+            {featuredPlaylist?.spotifyUrl && (
+                    <div class="spotify-demo">
+                        <SpotifyEmbed
+                                spotifyUrl={featuredPlaylist.spotifyUrl}
+                                title={featuredPlaylist.title}/>
+                    </div>
+            )}
+
+            <style>
+                .spotify-demo {
+                    max-width: 700px;
+                    margin-block: 24px 48px;
+                }
+            </style>
+
+
+            <h3 class="gallery-title">Videos / YouTube</h3>
+
+            <div class="media-grid">
+                {videos.map((video) => (
+                        <MediaCard
+                                platform="youtube"
+                                title={video.title}
+                                description={video.description}
+                                imageSrc={video.thumbnail}
+                                href={video.youtubeUrl}/>
+                ))}
+
+            </div>
+
+
+        </section>
+
+    </main>
+</Layout>
+
+<style>
+    .design-system {
+        padding-block: 80px 120px;
+    }
+
+    .intro {
+        max-width: 850px;
+        margin-bottom: 80px;
+    }
+
+    .intro .label-tech,
+    section > .label-tech {
+        color: var(--color-accent-primary);
+    }
+
+    .intro h1 {
+        margin: 20px 0;
+    }
+
+    .intro p,
+    .type-example p,
+    .demo-card p {
+        color: var(--color-text-secondary);
+    }
+
+    section {
+        margin-bottom: 80px;
+    }
+
+    section h2 {
+        margin-block: 12px 32px;
+    }
+
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .swatch {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .color-preview {
+        height: 120px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+    }
+
+    .obsidian { background: var(--color-bg); }
+    .pink { background: var(--color-accent-primary); }
+    .cyan { background: var(--color-accent-secondary); }
+    .amber { background: var(--color-city-amber); }
+
+    .swatch small {
+        color: var(--color-text-secondary);
+    }
+
+    .type-example {
+        padding: 24px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .type-example h1 {
+        margin: 12px 0;
+    }
+
+    .type-example p {
+        max-width: 650px;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .demo-card {
+        max-width: 420px;
+        padding: 28px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .demo-card h3 {
+        margin: 16px 0;
+    }
+
+    .card-line {
+        height: 3px;
+        width: 80px;
+        margin-top: 24px;
+        background: var(--color-accent-primary);
+    }
+
+
+    .gallery-title {
+        margin: 48px 0 24px;
+        font-size: 1.5rem;
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
+        gap: 24px;
+    }
+
+    @media (max-width: 700px) {
+        .media-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+    @media (max-width: 640px) {
+        .design-system {
+            padding-block: 48px 80px;
+        }
+
+        .color-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+</style>

@@ -1,0 +1,71 @@
+:root {
+    /* =================================
+       EL MALAYA - DESIGN TOKENS v0.1
+       ================================= */
+
+    /* Backgrounds */
+    --color-bg: #0A0C11;
+    --color-surface: #111726;
+    --color-panel: #1A2233;
+    --color-border: #2B354A;
+
+    /* Typography colors */
+    --color-text-primary: #F5F7FA;
+    --color-text-secondary: #A8B2C5;
+    --color-text-muted: #6C768A;
+
+    /* Mask reference colors */
+    --color-mask-pink: #D75963;
+    --color-mask-cyan: #11A9CF;
+    --color-mask-black: #231F24;
+
+    /* UI accent colors */
+    --color-accent-primary: #F16D97;
+    --color-accent-secondary: #A8ECF8;
+    --color-city-amber: #FF9A2F;
+
+    /* Typography families */
+    --font-heading: "Sora Variable", sans-serif;
+    --font-body: "Inter Variable", sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+
+    /* Spacing scale */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+
+    /* Shadows */
+    --shadow-soft:
+            0 12px 40px rgba(0, 0, 0, 0.35);
+
+    --shadow-deep:
+            0 20px 60px rgba(0, 0, 0, 0.50);
+
+    /* Accent glows */
+    --glow-pink:
+            0 0 0 1px rgba(241, 109, 151, 0.20),
+            0 8px 28px rgba(241, 109, 151, 0.18);
+
+    --glow-cyan:
+            0 0 0 1px rgba(168, 236, 248, 0.18),
+            0 8px 24px rgba(17, 169, 207, 0.14);
+
+    /* Motion */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 450ms ease;
+
+    /* Layout */
+    --container-max-width: 1280px;
+}

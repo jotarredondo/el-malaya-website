@@ -1,0 +1,100 @@
+.spotify-selector {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 32px;
+    align-items: start;
+    margin-block: 32px 64px;
+  }
+
+  .spotify-selector__list,
+  .spotify-selector__player {
+    min-width: 0;
+  }
+
+  .spotify-selector h3 {
+    margin: 12px 0 24px;
+    font-size: 1.5rem;
+  }
+
+  .spotify-selector .label-tech {
+    color: var(--color-accent-primary);
+  }
+
+  .playlist-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .playlist-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 18px;
+    text-align: left;
+    font: inherit;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--transition-normal),
+                background-color var(--transition-normal);
+  }
+
+  .playlist-option:hover {
+    border-color: var(--color-accent-secondary);
+  }
+
+  .playlist-option[aria-pressed="true"] {
+    border-color: var(--color-accent-primary);
+    background: var(--color-panel);
+    box-shadow: var(--glow-pink);
+  }
+
+  .playlist-option__number {
+    font-family: var(--font-mono);
+    color: var(--color-accent-primary);
+    font-size: 0.75rem;
+  }
+
+  .playlist-option__info {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .playlist-option__info strong {
+    font-size: 0.95rem;
+  }
+
+  .playlist-option__info small {
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .spotify-selector__player {
+    padding: 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .empty-message {
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 850px) {
+    .spotify-selector {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .playlist-option {
+      transition: none;
+    }
+  }
