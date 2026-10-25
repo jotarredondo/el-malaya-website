@@ -13,7 +13,7 @@
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
-.youtube-gallery__header > p:last-child {
+.youtube-gallery__header > p:last-of-type {
   margin: 0 0 28px;
   color: var(--color-text-secondary);
 }
@@ -27,14 +27,14 @@
 
 .youtube-gallery__cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
 .youtube-gallery__card {
   display: flex;
   min-width: 0;
-  flex-direction: column;
+  flex-direction: row;
   padding: 0;
   text-align: left;
   color: inherit;
@@ -67,7 +67,8 @@
   display: grid;
   place-items: center;
   aspect-ratio: 16 / 9;
-  width: 100%;
+  width: 42%;
+  flex: 0 0 42%;
   overflow: hidden;
   background:
     radial-gradient(circle at 70% 20%, rgba(17,169,207,.35), transparent 60%),
@@ -122,15 +123,18 @@
 
 .youtube-gallery__viewer {
   min-width: 0;
-  padding: 22px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
-.youtube-gallery__viewer h4 {
-  margin: 12px 0 18px;
-  font-size: 1.1rem;
+.youtube-gallery__selected {
+  margin-bottom: 24px;
+}
+
+.youtube-gallery__selected h4 {
+  margin: 6px 0 0;
+  font-size: 1rem;
 }
 
 .youtube-gallery__player {
@@ -177,3 +181,35 @@
     transition: none;
   }
 }
+
+
+/* Horizontal video cards */
+
+.youtube-gallery__card {
+  flex-direction: row;
+}
+
+.youtube-gallery__poster {
+  width: 42%;
+  flex: 0 0 42%;
+}
+
+.youtube-gallery__card-info {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* Mobile layout */
+
+@media (max-width: 520px) {
+  .youtube-gallery__card {
+    flex-direction: column;
+  }
+
+  .youtube-gallery__poster {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}
+

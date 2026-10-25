@@ -9,10 +9,10 @@ export interface Video {
 
 export const videos: Video[] = [
     {
-        id: 'youtube-demo',
-        title: 'Prueba técnica de YouTube',
-        description: 'Contenido de prueba, no publicar.',
-        youtubeUrl: 'https://www.youtube.com/watch?v=2MsbVEupqAs'
+        id: 'flashback-malaya-remix',
+        title: 'Javiera Mena - Flashback (Malaya Remix)',
+        description: 'Remix publicado en YouTube.',
+        youtubeUrl: 'https://www.youtube.com/watch?v=2MsbVEupqAs',
+        thumbnail: 'https://i.ytimg.com/vi/2MsbVEupqAs/hqdefault.jpg'
     }
-
 ];

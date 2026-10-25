@@ -48,13 +48,29 @@ const items = videos.map((video) => ({
   ...video,
   embedUrl: getYouTubeEmbedUrl(video.youtubeUrl),
 }));
+const initialVideo = items[0];
 ---
 
 <section class="youtube-gallery" data-youtube-gallery aria-label="Galería de YouTube">
+
   <div class="youtube-gallery__header">
     <p class="label-tech">02 / VIDEO SELECTION</p>
+
     <h3>Watch / Live Sets</h3>
-    <p>Sesiones y contenido audiovisual de EL MALAYA.</p>
+
+    <p>
+      Sesiones y contenido audiovisual de EL MALAYA.
+    </p>
+
+    <div class="youtube-gallery__selected">
+      <span class="label-tech">VIDEO PLAYER</span>
+
+      <h4 data-youtube-selected-title>
+        {initialVideo?.embedUrl
+            ? initialVideo.title
+            : 'Selecciona un video'}
+      </h4>
+    </div>
   </div>
 
   <div class="youtube-gallery__layout">
@@ -66,7 +82,7 @@ const items = videos.map((video) => ({
             class="youtube-gallery__card"
             data-youtube-embed={video.embedUrl}
             data-youtube-title={video.title}
-            aria-pressed="false"
+            aria-pressed={index === 0}
             aria-label={`Ver ${video.title}`}
           >
             <span class="youtube-gallery__poster">
@@ -98,13 +114,26 @@ const items = videos.map((video) => ({
       )}
     </div>
 
+
     <div class="youtube-gallery__viewer">
-      <p class="label-tech">VIDEO PLAYER</p>
-      <h4 data-youtube-selected-title>Selecciona un video</h4>
       <div class="youtube-gallery__player" data-youtube-player>
-        <p>El reproductor oficial se abrirá aquí cuando selecciones un video publicado.</p>
+        {initialVideo?.embedUrl ? (
+            <iframe
+                src={initialVideo.embedUrl}
+                title={initialVideo.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+        ) : (
+            <p>
+              No hay un video válido disponible.
+            </p>
+        )}
       </div>
     </div>
+
   </div>
 </section>
 
