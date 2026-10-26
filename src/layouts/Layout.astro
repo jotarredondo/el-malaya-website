@@ -1,3 +1,4 @@
+
 ---
 import '@fontsource-variable/sora';
 import '@fontsource-variable/inter';
@@ -7,28 +8,85 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/tokens.css';
 import '../styles/typography.css';
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'EL MALAYA | DJ & Music Producer en Santiago de Chile',
+	description = 'EL MALAYA, DJ y productor musical en Santiago de Chile. Descubre sus playlists de Spotify, remixes, videos y contacto para bookings, eventos y colaboraciones.',
+} = Astro.props;
+
+const canonicalUrl = Astro.site
+	? new URL(Astro.url.pathname, Astro.site).href
+	: undefined;
+
+const socialImage = Astro.site
+	? new URL('/images/el-malaya-hero.webp', Astro.site).href
+	: undefined;
 ---
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>EL MALAYA | DJ & Producer</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+<head>
+	<meta charset="utf-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1"
+	/>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+
+	{canonicalUrl && (
+		<link rel="canonical" href={canonicalUrl} />
+	)}
+
+	<link
+		rel="icon"
+		type="image/svg+xml"
+		href="/favicon.svg"
+	/>
+	<link rel="icon" href="/favicon.ico" />
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="es_CL" />
+	<meta property="og:site_name" content="EL MALAYA" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+
+	{canonicalUrl && (
+		<meta property="og:url" content={canonicalUrl} />
+	)}
+
+	{socialImage && (
+		<meta property="og:image" content={socialImage} />
+	)}
+
+	{socialImage && (
+		<meta
+			property="og:image:alt"
+			content="EL MALAYA con máscara fucsia y cian frente a Santiago nocturno"
+		/>
+	)}
+
+	<!-- Twitter / X -->
+	<meta
+		name="twitter:card"
+		content={socialImage ? 'summary_large_image' : 'summary'}
+	/>
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
+
+	{socialImage && (
+		<meta name="twitter:image" content={socialImage} />
+	)}
+</head>
+
+<body>
+<slot />
+</body>
+</html>

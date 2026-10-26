@@ -138,7 +138,8 @@
 .home-about h2,
 .home-contact h2 {
   margin: 0 0 1rem;
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.2;
 }
 
 .home-section__heading > p:last-child,
