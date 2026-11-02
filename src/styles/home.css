@@ -4,7 +4,20 @@
 .skip-link:focus { top: 1rem; }
 .home-header { position: relative; z-index: 3; background: #0a0c11; border-bottom: 1px solid var(--color-border); }
 .home-nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 1.5rem; }
-.home-brand { font: 700 1.15rem var(--font-heading); letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+.home-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.home-brand img {
+  display: block;
+  width: auto;
+  height: 42px;
+  max-width: 100%;
+  object-fit: contain;
+}
 .home-links { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(.85rem, 2vw, 2rem); }
 .home-links a { font: 500 .85rem var(--font-body); text-decoration: none; color: var(--color-text-secondary); transition: color var(--transition-normal); }
 .home-links a:hover { color: var(--color-accent-primary); }
@@ -351,4 +364,17 @@
   .home-action:hover {
     transform: none;
   }
+}
+
+.home-hero h1.home-hero__logo {
+  margin: 0 0 1.5rem;
+  max-width: none;
+  line-height: 1;
+}
+
+.home-hero__logo img {
+  display: block;
+  width: clamp(240px, 35vw, 520px);
+  max-width: 100%;
+  height: auto;
 }

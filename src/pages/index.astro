@@ -17,8 +17,15 @@ const contactHref = siteConfig.bookingEmail
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="home-header" id="top">
     <nav class="home-container home-nav" aria-label="Navegación principal">
-      <!-- Nombre temporal: no es un logotipo definitivo -->
-      <a class="home-brand" href="#top">MALAYA</a>
+      <!-- LOGOTIPO -->
+      <a class="home-brand" href="#top" aria-label="EL MALAYA - Inicio">
+        <img
+            src="/images/malaya-logotipo.png"
+            alt="MALAYA"
+            width="2048"
+            height="682"
+        />
+      </a>
       <div class="home-links">
         <a href="#music">Música</a>
         <a href="#videos">Videos</a>
@@ -34,7 +41,15 @@ const contactHref = siteConfig.bookingEmail
       <div class="home-hero__light" aria-hidden="true"></div>
       <div class="home-container home-hero__content">
         <p class="home-eyebrow">SANTIAGO, CHILE <span aria-hidden="true">/</span> DJ &amp; PRODUCER</p>
-        <h1 id="hero-title">MALAYA</h1>
+        <h1 id="hero-title" class="home-hero__logo">
+          <img
+              src="/images/malaya-logotipo.png"
+              alt="MALAYA"
+              width="2048"
+              height="682"
+              fetchpriority="high"
+          />
+        </h1>
         <p class="home-hero__description">
           Una identidad musical en movimiento. Selecciones, remixes y video en un mismo lugar.
         </p>
@@ -111,7 +126,14 @@ const contactHref = siteConfig.bookingEmail
   <footer class="home-footer">
     <div class="home-container home-footer__inner">
       <div>
-        <strong>EL MALAYA</strong>
+        <a class="home-brand" href="#top" aria-label="EL MALAYA - Inicio">
+          <img
+              src="/images/malaya-logotipo.png"
+              alt="MALAYA"
+              width="2048"
+              height="682"
+          />
+        </a>
         <small>DJ / PRODUCER</small>
       </div>
       <div class="home-footer__socials">

@@ -1,5 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
-  <path d="M80 410 V135 L256 255 L432 135 V410" stroke="#ff2bd6" stroke-width="42" stroke-linejoin="miter" stroke-linecap="butt"/>
-  <path d="M128 220 L256 308 L384 220" stroke="#19c8ff" stroke-width="34" stroke-linejoin="miter" stroke-linecap="butt"/>
-  <path d="M256 308 V388" stroke="#19c8ff" stroke-width="34" stroke-linejoin="miter" stroke-linecap="butt"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="MALAYA - isotipo MY">
+  <title>MALAYA</title>
+  <g fill="#FD01EF">
+    <polygon points="70.889,148.435 18.000,380.003 82.324,357.847 119.489,187.745"/>
+    <polygon points="74.462,131.997 258.859,266.363 447.544,132.354 349.270,131.997 260.646,200.610 172.736,131.997"/>
+    <polygon points="451.117,148.078 399.300,187.745 428.604,357.132 494.000,380.003"/>
+  </g>
+  <g fill="#00F4FE">
+    <polygon points="392.153,246.351 382.862,198.823 258.502,285.661 136.643,199.180 126.994,248.495 230.985,319.967 230.985,377.502 283.874,377.502 283.874,320.682"/>
+  </g>
 </svg>
